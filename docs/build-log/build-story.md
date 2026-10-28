@@ -68,15 +68,14 @@ On the shop the gate stayed shut at 0 of 5. The reviewer caught something we'd m
 
 ## What broke while we built it
 
-Testing on a real setup turned up six problems. We fixed each one before taking these screenshots.
+Testing on a real setup turned up five problems. We fixed each one before taking these screenshots.
 
 1. **OSV-Scanner found nothing.** The test project sat inside a folder that another repo's `.gitignore` ignores, and OSV-Scanner obeys outer `.gitignore` files. Fivebar now checks for that case and passes `--no-ignore` only then.
 2. **The agent loop never ran on our PC.** The hook was connected and worked when run by hand, but Claude Code never called it. Our own Claude Code settings had `"disableAllHooks": true`. Fivebar now reads your Claude Code settings and warns you on the Connect screen when hooks are off.
 3. **A message claimed `--no-verify` pushes get logged.** They don't. `--no-verify` skips the hook, so Fivebar never sees the push. We changed the wording.
 4. **The review gate said "5 findings in this change"** when the change touched one file. The five were lodash advisories, which do count, because the change ships with them. The label now says "5 open (5 in dependencies)".
 5. **The logo vanished on the dark setup screen.** The small shield used a fixed dark colour. It now follows the text colour.
-6. **Ten fake secrets in a real project.** On LedgerQuarry, one of our own builds, Gitleaks spent 45 seconds reading a Python virtualenv and Rust build output, and flagged 10 "API keys" inside numpy tests and compiled files. Neither folder gets pushed, because .gitignore lists both. Fivebar now skips every folder git ignores. The same scan takes 2.9 seconds and the 10 false alarms are gone.
 
 ## What's next
 
-Guards that stop risky commands inside the agent, a nightly scan, a phone app over your own Tailscale network, and direct connectors for Codex and Antigravity. Fivebar is open source under the Apache 2.0 licence, and we want contributors. The repo goes public when the first release is ready.
+Guards that stop risky commands inside the agent, a nightly scan, a phone app over your own Tailscale network, and direct connectors for Codex and Antigravity. Fivebar is open source under the Apache 2.0 licence, and we want contributors. The code is on GitHub at Obiwayne/fivebar.

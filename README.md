@@ -221,11 +221,10 @@ Run it as `node dist/cli/index.js <command>` after `npm run build`.
 
 ## Tested on
 
-- **The demo shop** in `tests/fixtures/vuln-app`: 10 findings on the first scan, the full agent loop with Claude Code three times, a blocked push and a review.
-- **Sweepmail**, a Python project: score 100, 2.6 seconds.
-- **LedgerQuarry**, a Tauri, TypeScript and Python project: 2.9 seconds. Real advisories in its promo-video packages, and 13 `innerHTML` uses worth a look.
+- **The demo shop** in `tests/fixtures/vuln-app`, a made-up app with its problems planted on purpose: 10 findings on the first scan, the full agent loop with Claude Code three times, a blocked push and a review.
+- **The installed app** (0.1.0) on a fresh copy of the demo shop: scan, blocked push, MCP server and the agent loop.
 
-`docs/build-log/build-story.md` tells the story of the build, including six bugs real testing turned up and how each got fixed.
+`docs/build-log/build-story.md` tells the story of the build, including the bugs testing turned up and how each got fixed.
 
 ## Project layout
 
