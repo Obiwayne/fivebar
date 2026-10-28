@@ -1,0 +1,43 @@
+[
+ {
+  "go": "#/setup",
+  "settle": 1500,
+  "js": "const c=document.querySelectorAll(\"button.choice\")[1]; if (c.classList.contains(\"on\")) c.click();",
+  "wait": 400,
+  "shot": "setup-01-agents"
+ },
+ {
+  "js": "document.querySelectorAll(\"button.choice\")[1].click()",
+  "wait": 400,
+  "shot": "setup-02-agents-picked"
+ },
+ {
+  "js": "[...document.querySelectorAll(\"button\")].find(b => b.textContent.trim() === \"Continue\").click()",
+  "wait": 6000,
+  "shot": "setup-03-check-pc"
+ },
+ {
+  "js": "[...document.querySelectorAll(\"button\")].find(b => b.textContent.trim() === \"Continue\").click()",
+  "wait": 500,
+  "shot": "setup-04-scanners"
+ },
+ {
+  "js": "[...document.querySelectorAll(\"button\")].find(b => b.textContent.trim() === \"Continue\").click()",
+  "wait": 400,
+  "shot": "setup-05-guards"
+ },
+ {
+  "js": "[...document.querySelectorAll(\"button\")].find(b => b.textContent.trim() === \"Continue\").click()",
+  "wait": 400,
+  "shot": "setup-06-phone"
+ },
+ {
+  "js": "[...document.querySelectorAll(\"button\")].find(b => b.textContent.trim() === \"Continue\").click()",
+  "wait": 400
+ },
+ {
+  "js": "const i = document.querySelector(\"#setup-folder\"); const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, \"value\").set; set.call(i, \"F:/RepoQuarry-Builds/fivebar/tests/.tmp/demo/acme-shop\"); i.dispatchEvent(new Event(\"input\", { bubbles: true }));",
+  "wait": 400,
+  "shot": "setup-07-first-project"
+ }
+]

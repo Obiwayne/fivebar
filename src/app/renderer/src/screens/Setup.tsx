@@ -101,7 +101,7 @@ export function Setup({ ctx }: { ctx: Ctx }) {
     body = (
       <>
         <h1>Install the three scanners</h1>
-        <div className="muted">About 70 MB from each project's GitHub release. Fivebar checks every file against a pinned SHA-256 before it runs.</div>
+        <div className="muted">About 120 MB in total, from each tool's GitHub release. Fivebar checks every file against a pinned SHA-256 before it runs.</div>
         <div className="card col rows" style={{ gap: 0 }}>
           {ctx.state.tools.map((t) => (
             <div key={t.name} className="row" style={{ justifyContent: "space-between", padding: "12px 0", borderTop: "1px solid var(--hairline)" }}>

@@ -1,4 +1,4 @@
-# Fivebar's own starter rules. MIT licensed, written for this project.
+# Fivebar's own starter rules, written for this project. Same licence as Fivebar.
 # They target bugs AI coding agents write often. Run by Opengrep (or Semgrep CE).
 rules:
   - id: fivebar.js.sql-template-literal

@@ -61,7 +61,7 @@ function Scanners({ ctx }: { ctx: Ctx }) {
           <span className="mono" style={{ fontSize: 11, color: t.installed ? "var(--pass)" : "var(--signal)" }}>{t.installed ? "READY" : "MISSING"}</span>
         </Row>
       ))}
-      <Row name="Fivebar rules" sub="12 rules for JavaScript, TypeScript and Python, run by Opengrep. MIT."><span className="mono" style={{ fontSize: 11 }}>BUILT IN</span></Row>
+      <Row name="Fivebar rules" sub="12 rules for JavaScript, TypeScript and Python, run by Opengrep."><span className="mono" style={{ fontSize: 11 }}>BUILT IN</span></Row>
     </div>
   );
 }
@@ -133,7 +133,7 @@ function About({ ctx }: { ctx: Ctx }) {
   return (
     <div className="card col" style={{ gap: 0 }}>
       <h2 style={{ paddingBottom: 12 }}>About</h2>
-      <Row name="Fivebar" sub="Open source, MIT"><span className="mono" style={{ fontSize: 11 }}>0.1.0</span></Row>
+      <Row name="Fivebar" sub="Open source"><span className="mono" style={{ fontSize: 11 }}>0.1.0</span></Row>
       <Row name="Data" sub="Everything stays on this PC in %APPDATA%\Fivebar"><span className="mono" style={{ fontSize: 11 }}>LOCAL ONLY</span></Row>
       <Row name="Run setup again" sub="Pick agents and install scanners again"><button className="btn" onClick={() => ctx.go("setup")}>Open setup</button></Row>
     </div>

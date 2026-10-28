@@ -28,7 +28,7 @@ Claude Code fixed all three in the same session. Fivebar re-checked, closed the 
 
 ## What's inside
 
-- **Opengrep 1.33.0** (LGPL) runs 12 rules we wrote for JavaScript, TypeScript and Python. The rules are MIT.
+- **Opengrep 1.33.0** (LGPL) runs 12 rules we wrote for JavaScript, TypeScript and Python.
 - **Gitleaks 8.30.1** (MIT) looks for secrets in files and in the commits you push.
 - **OSV-Scanner 2.7.0** (Apache 2.0) checks lockfiles against the OSV advisory database.
 
@@ -79,4 +79,4 @@ Testing on a real setup turned up six problems. We fixed each one before taking 
 
 ## What's next
 
-Guards that stop risky commands inside the agent, a nightly scan, a phone app over your own Tailscale network, and direct connectors for Codex and Antigravity. Fivebar will be open source under MIT, and we want contributors. The repo goes public when the first release is ready.
+Guards that stop risky commands inside the agent, a nightly scan, a phone app over your own Tailscale network, and direct connectors for Codex and Antigravity. Fivebar will be open source, and we want contributors. The repo goes public when the first release is ready.

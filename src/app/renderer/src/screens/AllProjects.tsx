@@ -82,7 +82,7 @@ export function AddProjectDialog({ ctx, onClose }: { ctx: Ctx; onClose: () => vo
       </div>
       {error && <div style={{ color: "var(--signal)", fontSize: 13 }}>{error}</div>}
       <div className="row" style={{ justifyContent: "space-between", alignItems: "center", paddingTop: 6, borderTop: "1px solid var(--hairline)" }}>
-        <span className="muted" style={{ fontSize: 12 }}>{busy ?? "The first scan takes about a minute."}</span>
+        <span className="muted" style={{ fontSize: 12 }}>{busy ?? "The first scan usually takes under a minute."}</span>
         <div className="row" style={{ gap: 8 }}>
           <button className="btn" onClick={onClose}>Cancel</button>
           <button className="btn primary" disabled={!folder.trim() || !!busy} onClick={add}>Add and scan</button>
@@ -111,7 +111,7 @@ export function AllProjects({ ctx }: { ctx: Ctx }) {
         <button onClick={() => setAdding(true)} style={{ border: "1.5px dashed #cfccc2", borderRadius: 20, background: "none", minHeight: 200, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
           <span style={{ width: 40, height: 40, borderRadius: 999, background: "var(--surface)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 300 }}>+</span>
           <span style={{ fontWeight: 500 }}>Add a project</span>
-          <span className="muted" style={{ fontSize: 13 }}>Paste a folder path. First scan takes about a minute.</span>
+          <span className="muted" style={{ fontSize: 13 }}>Paste a folder path. The first scan usually takes under a minute.</span>
         </button>
       </div>
       {adding && <AddProjectDialog ctx={ctx} onClose={() => setAdding(false)} />}
