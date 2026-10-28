@@ -1,0 +1,25 @@
+$ fivebar tools status
+✓ Opengrep 1.33.0 (LGPL-2.1)
+✓ Gitleaks 8.30.1 (MIT)
+✓ OSV-Scanner 2.7.0 (Apache-2.0)
+
+$ fivebar add tests/fixtures/vuln-app
+Added vuln-app
+
+$ fivebar scan tests/fixtures/vuln-app
+✓ opengrep     3 results · 2.4 s
+✓ gitleaks     2 results · 0.4 s
+✓ osv-scanner  5 results · 0.8 s
+Score 28 · open: 0 critical, 6 high, 4 medium, 0 low · 0 new, 0 closed
+
+$ fivebar findings tests/fixtures/vuln-app
+MEDIUM   lodash 4.17.20: lodash vulnerable to Prototype Pollution via package-lock.json  [osv-scanner] 1542bfee4eff
+MEDIUM   Setting innerHTML from a variable can run injected scripts ( src/users.js:8  [opengrep] 16cf932eed46
+HIGH     SQL is built from a template string with ${...}              src/users.js:4  [opengrep] 2df9c9361b76
+HIGH     GitHub token in code                                         src/config.js:3  [gitleaks] 62de7fc110a2
+HIGH     eval() runs any string as code                               src/users.js:12  [opengrep] 6afaf5511e50
+HIGH     Stripe key in code                                           src/config.js:2  [gitleaks] 921e213b0a5d
+MEDIUM   lodash 4.17.20: Lodash has Prototype Pollution Vulnerability package-lock.json  [osv-scanner] adf3d922e254
+HIGH     lodash 4.17.20: lodash vulnerable to Code Injection via `_.t package-lock.json  [osv-scanner] c8b39ff0c4e4
+HIGH     lodash 4.17.20: Command Injection in lodash                  package-lock.json  [osv-scanner] cbbfe8260f86
+MEDIUM   lodash 4.17.20: Regular Expression Denial of Service (ReDoS) package-lock.json  [osv-scanner] cf294ab6b408

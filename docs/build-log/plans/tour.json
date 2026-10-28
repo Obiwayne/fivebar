@@ -1,0 +1,14 @@
+[
+  { "go": "#/", "settle": 2000, "shot": "tour-01-all-projects" },
+  { "go": "#/p/acme-shop-dbee8b", "settle": 3000, "shot": "tour-02-overview" },
+  { "go": "#/p/acme-shop-dbee8b/findings", "settle": 3000, "shot": "tour-03-findings" },
+  { "js": "[...document.querySelectorAll('button')].find(b => b.textContent.trim() === 'Open').click()", "wait": 3000, "shot": "tour-04-finding-detail" },
+  { "go": "#/p/acme-shop-dbee8b/loop", "settle": 3000, "shot": "tour-05-agent-loop" },
+  { "go": "#/p/acme-shop-dbee8b/history", "settle": 3000, "shot": "tour-06-history" },
+  { "go": "#/settings/scanners", "settle": 1500, "shot": "tour-07-settings-scanners" },
+  { "go": "#/settings/agents", "settle": 6000, "shot": "tour-08-settings-agents" },
+  { "go": "#/settings/phone", "settle": 6000, "shot": "tour-09-settings-phone" },
+  { "go": "#/p/acme-shop-dbee8b/gate", "settle": 2000, "shot": "gate-01-before" },
+  { "js": "[...document.querySelectorAll('button')].find(b => /Review this change|Re-review/.test(b.textContent)).click()", "wait": 3000, "shot": "gate-02-running" },
+  { "wait": 45000, "shot": "gate-03-result" }
+]

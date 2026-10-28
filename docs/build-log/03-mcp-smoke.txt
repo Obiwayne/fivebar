@@ -1,0 +1,42 @@
+tools: get_findings, get_finding, rescan, mark_fixed, get_loop
+
+== get_findings
+{
+  "project": "hookrepo",
+  "count": 1,
+  "findings": [
+    {
+      "id": "bb8d2df7d66f",
+      "severity": "high",
+      "title": "GitHub token in code",
+      "where": "app.js:1",
+      "cwe": "CWE-798",
+      "fix": "Move the value to an environment variable or secret store, then rotate it. It may already be in git history, so rotating matters.",
+      "foundBy": [
+        "gitleaks"
+      ],
+      "status": "open"
+    }
+  ]
+}
+
+== rescan
+{
+  "score": 100,
+  "openInScope": [],
+  "newFindings": [],
+  "closed": [
+    {
+      "id": "bb8d2df7d66f",
+      "title": "GitHub token in code"
+    }
+  ]
+}
+
+== get_loop
+{
+  "status": "needs_owner",
+  "rounds": 3,
+  "cap": 3,
+  "lastMessage": "fivebar · security check · round 3 of 3\n1 problem in the files you changed. Fix each one, then finish your turn and Fivebar re-checks.\n\n1. HIGH SQL is built from a template string with ${...}\n   where: app.js:3 (CWE-89)\n   fix:   Use a parameterised query, for example db.query('SELECT * FROM users WHERE email = $1', [email]).\n   id:    e36d8d260993  (found by opengrep)\n\nIf one of these is a false positive, say so in your reply and leave it. The owner can dismiss it in Fivebar."
+}

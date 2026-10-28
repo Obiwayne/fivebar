@@ -1,0 +1,162 @@
+# Fivebar's own starter rules. MIT licensed, written for this project.
+# They target bugs AI coding agents write often. Run by Opengrep (or Semgrep CE).
+rules:
+  - id: fivebar.js.sql-template-literal
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: SQL is built from a template string with ${...}. Pass values as query parameters instead.
+    metadata:
+      cwe: "CWE-89"
+      category: sql-injection
+      fivebar-severity: high
+      fix: "Use a parameterised query, for example db.query('SELECT * FROM users WHERE email = $1', [email])."
+    patterns:
+      - pattern-either:
+          - pattern: $DB.query(`...${$X}...`, ...)
+          - pattern: $DB.query(`...${$X}...`)
+          - pattern: $DB.execute(`...${$X}...`, ...)
+          - pattern: $DB.execute(`...${$X}...`)
+          - pattern: $DB.raw(`...${$X}...`)
+
+  - id: fivebar.js.eval
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: eval() runs any string as code. Remove it or parse the data you need instead.
+    metadata:
+      cwe: "CWE-95"
+      category: code-injection
+      fivebar-severity: high
+      fix: "Replace eval with JSON.parse for data, or a lookup table for known actions."
+    pattern-either:
+      - pattern: eval($X)
+      - pattern: new Function(...)
+
+  - id: fivebar.js.inner-html
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: Setting innerHTML from a variable can run injected scripts (XSS).
+    metadata:
+      cwe: "CWE-79"
+      category: xss
+      fivebar-severity: medium
+      fix: "Use textContent, or sanitise with DOMPurify before setting innerHTML."
+    patterns:
+      - pattern: $EL.innerHTML = $X
+      - pattern-not: $EL.innerHTML = "..."
+
+  - id: fivebar.js.react-dangerous-html
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: dangerouslySetInnerHTML with a variable can run injected scripts (XSS).
+    metadata:
+      cwe: "CWE-79"
+      category: xss
+      fivebar-severity: medium
+      fix: "Render the text normally, or sanitise the HTML with DOMPurify first."
+    pattern: "<$TAG dangerouslySetInnerHTML={{__html: $X}} />"
+
+  - id: fivebar.js.exec-template
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: A shell command is built from a template string. Untrusted input could run other commands.
+    metadata:
+      cwe: "CWE-78"
+      category: command-injection
+      fivebar-severity: high
+      fix: "Use execFile or spawn with an argument array instead of exec with a string."
+    pattern-either:
+      - pattern: $CP.exec(`...${$X}...`, ...)
+      - pattern: $CP.execSync(`...${$X}...`, ...)
+      - pattern: exec(`...${$X}...`, ...)
+      - pattern: execSync(`...${$X}...`, ...)
+
+  - id: fivebar.js.open-redirect
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: Redirecting to a URL taken straight from the request lets attackers send users anywhere.
+    metadata:
+      cwe: "CWE-601"
+      category: open-redirect
+      fivebar-severity: medium
+      fix: "Only redirect to paths on your own site, or check the target against an allow list."
+    pattern-either:
+      - pattern: $RES.redirect($REQ.query.$P)
+      - pattern: $RES.redirect($REQ.body.$P)
+      - pattern: $RES.redirect($REQ.params.$P)
+
+  - id: fivebar.js.cors-wildcard
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: CORS allows every origin. Any website can call this API from a visitor's browser.
+    metadata:
+      cwe: "CWE-942"
+      category: cors
+      fivebar-severity: medium
+      fix: "List the origins you trust instead of '*'."
+    pattern-either:
+      - pattern: $RES.setHeader("Access-Control-Allow-Origin", "*")
+      - pattern: "cors({origin: '*', ...})"
+      - pattern: "cors({origin: \"*\", ...})"
+
+  - id: fivebar.js.jwt-no-verify
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: jwt.decode() does not check the signature. Anyone can forge this token.
+    metadata:
+      cwe: "CWE-347"
+      category: auth
+      fivebar-severity: high
+      fix: "Use jwt.verify() with your secret or public key."
+    pattern: jwt.decode(...)
+
+  - id: fivebar.py.sql-format
+    languages: [python]
+    severity: ERROR
+    message: SQL is built with an f-string or format(). Pass values as query parameters instead.
+    metadata:
+      cwe: "CWE-89"
+      category: sql-injection
+      fivebar-severity: high
+      fix: "Use cursor.execute('SELECT * FROM users WHERE email = %s', (email,))."
+    pattern-either:
+      - pattern: $C.execute(f"...")
+      - pattern: $C.execute("..." % ...)
+      - pattern: $C.execute("...".format(...))
+
+  - id: fivebar.py.eval
+    languages: [python]
+    severity: ERROR
+    message: eval() or exec() runs any string as code.
+    metadata:
+      cwe: "CWE-95"
+      category: code-injection
+      fivebar-severity: high
+      fix: "Use ast.literal_eval for data, or a lookup table for known actions."
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+
+  - id: fivebar.py.shell-true
+    languages: [python]
+    severity: ERROR
+    message: subprocess with shell=True runs the string through the shell. Untrusted input could run other commands.
+    metadata:
+      cwe: "CWE-78"
+      category: command-injection
+      fivebar-severity: high
+      fix: "Pass a list of arguments and leave shell=False."
+    pattern: subprocess.$F(..., shell=True, ...)
+
+  - id: fivebar.py.unsafe-load
+    languages: [python]
+    severity: ERROR
+    message: pickle and yaml.load can run code hidden in the data they load.
+    metadata:
+      cwe: "CWE-502"
+      category: deserialization
+      fivebar-severity: high
+      fix: "Use yaml.safe_load, or JSON instead of pickle for data from outside."
+    pattern-either:
+      - pattern: pickle.loads(...)
+      - pattern: pickle.load(...)
+      - pattern: yaml.load($X)

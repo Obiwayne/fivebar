@@ -1,0 +1,12 @@
+fivebar ▸ full scan · opengrep gitleaks osv-scanner · 2.4 s
+✕ HIGH     lodash 4.17.20: lodash vulnerable to Code Inject package-lock.json
+✕ HIGH     Stripe key in code                               src/config.js:2
+✕ HIGH     lodash 4.17.20: Command Injection in lodash      package-lock.json
+✕ HIGH     GitHub token in code                             src/config.js:3
+fivebar ▸ push blocked. 4 findings at critical or high.
+          open Fivebar to see them, or push with --no-verify to skip (logged).
+error: failed to push some refs to '../remote.git'
+
+real	0m2.737s
+user	0m0.000s
+sys	0m0.015s

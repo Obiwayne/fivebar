@@ -1,0 +1,8 @@
+- tests: No test command found
+✗ scanners: 1 open finding in this change, worst: high SQL is built from a template string with ${...}
+ 1/5 security         findUser puts the caller-supplied email straight into the SQL string at app.js:5, so an input like `' OR '1'='1` returns every user. The scanner flags this as high, but the rubric lists injection as critical.
+ 4/5 correctness      The empty-input guard works, but a valid email with an apostrophe, such as `o'brien@example.com`, ends the quoted string early and the query throws a syntax error. Separately, the change deletes the existing `cfg`/stripeKey export from app.js, which will break any module that still requires it.
+ 5/5 readability      findUser and email say what they are, the function is four lines, and the CommonJS style matches the rest of the file.
+ 1/5 tests            findUser is new behaviour and the change adds no tests for it: not the null/empty-email branch, not the lookup, not malicious input.
+ 5/5 maintainability  No duplicated logic, no new dependency (it uses the existing ./db module), and nothing dead left behind in the changed lines.
+Gate shut: 2 of 5 bars at 5.

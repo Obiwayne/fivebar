@@ -1,0 +1,6 @@
+[
+  { "go": "#/p/acme-shop-dbee8b/settings", "settle": 6000, "shot": "connect-01-plan" },
+  { "js": "[...document.querySelectorAll('button')].find(b => b.textContent.trim() === 'Connect selected').click()", "wait": 12000 },
+  { "js": "document.querySelector('main').scrollTo(0, 0)", "wait": 300, "shot": "connect-02-connected" },
+  { "go": "#/p/acme-shop-dbee8b", "settle": 4000, "shot": "overview-02-connected" }
+]

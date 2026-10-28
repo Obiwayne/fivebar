@@ -1,0 +1,11 @@
+node_modules/
+dist/
+release/
+*.log
+.fivebar/
+tests/.tmp/
+
+# Build-log raw material: run logs hold local usernames, frames are GIF inputs
+docs/build-log/*.jsonl
+docs/build-log/*.err
+docs/build-log/img/loop-frames/
