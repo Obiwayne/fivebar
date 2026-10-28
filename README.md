@@ -103,11 +103,19 @@ The app follows your Windows light or dark theme.
 ## Requirements
 
 - Windows 10 or 11. Fivebar is built and tested on Windows 11.
-- Node.js 20 or later.
 - Git, for the pre-push hook.
 - Claude Code, for the agent loop, the MCP server and the review gate. Scanning and the push guard work without it.
+- Node.js 20 or later, only if you run from source.
 
-## Install and run
+## Install
+
+Download `Fivebar-Setup-0.1.0.exe` from the [latest release](https://github.com/Obiwayne/fivebar/releases/latest) and run it. It installs for your Windows user only, so it needs no admin rights, and adds Start menu and desktop shortcuts. The setup wizard then downloads the scanners.
+
+The installer isn't code-signed yet, so Windows SmartScreen may say it "protected your PC". Choose More info, then Run anyway. Uninstall from Settings, Apps. Your projects and findings stay in `%APPDATA%\Fivebar` until you delete that folder.
+
+The installed app needs no Node: the hooks and the MCP server run Fivebar's CLI through the app's own `Fivebar.exe`.
+
+## Run from source
 
 ```bash
 npm install
@@ -115,6 +123,8 @@ npm run build
 node dist/cli/index.js tools install
 npm run app
 ```
+
+`npm run dist` builds the installer into `release/`.
 
 `tools install` downloads Opengrep, Gitleaks and OSV-Scanner from their GitHub releases, about 120 MB in total, and checks each file against a SHA-256 pinned in the code before it ever runs. The setup wizard in the app does the same thing if you skip this step.
 

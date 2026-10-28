@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { groupCandidates, score, toFindings } from "../src/core/merge";
 import { globToRegex, isSkipped, redact } from "../src/core/runners";
 import { formatForAgent } from "../src/core/hooks";
+import { fivebarCommand, fivebarLaunch } from "../src/core/paths";
 import type { Candidate, Finding } from "../src/core/types";
 
 const base: Candidate = {
@@ -81,5 +82,15 @@ describe("agent message", () => {
     expect(msg).toContain("round 2 of 3");
     expect(msg).toContain("src/db.ts:10");
     expect(msg).toContain("Use a parameterised query.");
+  });
+});
+
+describe("launch command", () => {
+  it("runs the CLI with node when run from source", () => {
+    const { exe, args, env } = fivebarLaunch();
+    expect(exe).toBe("node");
+    expect(args[0]).toMatch(/dist\/cli\/index\.js$/);
+    expect(env).toEqual({});
+    expect(fivebarCommand()).toMatch(/^node "[^"]+dist\/cli\/index\.js"$/);
   });
 });

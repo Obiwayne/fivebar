@@ -34,11 +34,27 @@ export function rulesFile(): string {
   return path.join(appRoot(), "rules", "fivebar-rules.yml");
 }
 
-/** The command line other programs (git, Claude Code) use to call Fivebar. */
+/**
+ * How other programs (git, Claude Code) start Fivebar's CLI. From source it's `node dist/cli/index.js`. The installed
+ * app has no Node, so it runs the same CLI through its own Electron binary with ELECTRON_RUN_AS_NODE=1.
+ */
+export function fivebarLaunch(): { exe: string; args: string[]; env: Record<string, string> } {
+  const cli = toPosix(path.join(appRoot(), "dist", "cli", "index.js"));
+  if (isInstalledApp()) return { exe: toPosix(process.execPath), args: [cli], env: { ELECTRON_RUN_AS_NODE: "1" } };
+  return { exe: "node", args: [cli], env: {} };
+}
+
+/** True inside the installed app (its CLI or its window), false when run from source with node or `electron .`. */
+export function isInstalledApp(): boolean {
+  return Boolean(process.versions.electron) && !/[\\/]node_modules[\\/]electron[\\/]/i.test(process.execPath);
+}
+
+/** The command line for a shell: the git pre-push hook and Claude Code's Stop hook. */
 export function fivebarCommand(): string {
   if (process.env.FIVEBAR_COMMAND) return process.env.FIVEBAR_COMMAND;
-  const cli = path.join(appRoot(), "dist", "cli", "index.js").replace(/\\/g, "/");
-  return `node "${cli}"`;
+  const { exe, args, env } = fivebarLaunch();
+  const vars = Object.entries(env).map(([k, v]) => `${k}=${v} `).join("");
+  return `${vars}${exe === "node" ? "node" : `"${exe}"`} ${args.map((a) => `"${a}"`).join(" ")}`;
 }
 
 export function toPosix(p: string): string {

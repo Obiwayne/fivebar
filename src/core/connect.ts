@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fivebarCommand } from "./paths.js";
+import { fivebarCommand, fivebarLaunch } from "./paths.js";
 import { gitDir } from "./git.js";
 import { exec } from "./tools.js";
 import { Store } from "./store.js";
@@ -103,9 +103,10 @@ export async function connect(store: Store, project: Project, parts: (keyof Proj
 
   if (parts.includes("claudeMcp")) {
     await claude(["mcp", "remove", "--scope", "local", "fivebar"], root);
-    const cmd = fivebarCommand();
-    const [exe, ...rest] = cmd.match(/"[^"]+"|\S+/g)!.map((s) => s.replace(/^"|"$/g, ""));
-    const r = await claude(["mcp", "add", "--scope", "local", "fivebar", "--", exe, ...rest, "mcp", "--project", root], root);
+    const { exe, args, env } = fivebarLaunch();
+    const envFlags = Object.entries(env).flatMap(([k, v]) => ["-e", `${k}=${v}`]);
+    // -e takes several values, so it goes after the server name and is closed by "--".
+    const r = await claude(["mcp", "add", "--scope", "local", "fivebar", ...envFlags, "--", exe, ...args, "mcp", "--project", root], root);
     if (r.code !== 0) throw new Error(`Could not register the MCP server with Claude Code: ${(r.stderr || r.stdout).trim()}`);
     conn.claudeMcp = true;
   }
