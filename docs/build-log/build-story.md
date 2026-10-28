@@ -79,4 +79,4 @@ Testing on a real setup turned up six problems. We fixed each one before taking 
 
 ## What's next
 
-Guards that stop risky commands inside the agent, a nightly scan, a phone app over your own Tailscale network, and direct connectors for Codex and Antigravity. Fivebar will be open source, and we want contributors. The repo goes public when the first release is ready.
+Guards that stop risky commands inside the agent, a nightly scan, a phone app over your own Tailscale network, and direct connectors for Codex and Antigravity. Fivebar is open source under the Apache 2.0 licence, and we want contributors. The repo goes public when the first release is ready.

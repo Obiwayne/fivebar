@@ -1,0 +1,11 @@
+Fivebar
+Copyright 2026 Obiwayne
+
+This product includes software developed by Obiwayne and contributors
+(https://github.com/Obiwayne/fivebar).
+
+Fivebar runs these tools as separate programs. They are not bundled and keep
+their own licences:
+- Opengrep (LGPL-2.1)
+- Gitleaks (MIT)
+- OSV-Scanner (Apache-2.0)

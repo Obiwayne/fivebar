@@ -259,8 +259,10 @@ Coming next:
 
 ## Contributing
 
-Fivebar is open source and open to contributors. Good first areas: new Opengrep rules in `rules/fivebar-rules.yml` with a test in `tests/fixtures`, false positives you hit on real projects, and connectors for other coding agents. Please open an issue before a large change.
+Fivebar is open source under Apache-2.0 and open to contributors. Good first areas: new Opengrep rules in `rules/fivebar-rules.yml` with a test in `tests/fixtures`, false positives you hit on real projects, and connectors for other coding agents. Please open an issue before a large change.
 
 ## Licence
 
-Not chosen yet. The scanners keep their own licences, listed above.
+Fivebar is licensed under the [Apache License 2.0](LICENSE). You're free to use, change and share it, including in commercial work, as long as you keep the copyright and [NOTICE](NOTICE) and mark the files you change. Contributions are accepted under the same licence. The licence gives no rights to the Fivebar name or logo.
+
+The scanners keep their own licences, listed above. Fivebar runs them as separate programs and doesn't bundle their code.
